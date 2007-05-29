@@ -1,11 +1,12 @@
 Name: xfs
 Version: 1.0.4
-Release: %mkrel 2
+Release: %mkrel 3
 Summary: Font server for X11
 Group: System/Servers
 Source0: http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.bz2
 Source1: xfs.init
-Source2: xfs.config
+Source2: xfs.sysconfig
+Source3: xfs.config
 License: MIT
 Packager: Gustavo Pichorim Boiko <boiko@mandriva.com>
 BuildRoot: %{_tmppath}/%{name}-root
@@ -43,13 +44,15 @@ rm -rf %{buildroot}
 
 # initscript
 mkdir -p %{buildroot}%{_sysconfdir}/rc.d/init.d/
-install -m 755 %{SOURCE1} %{buildroot}%{_sysconfdir}/rc.d/init.d/xfs
+install -m 0755 %{SOURCE1} %{buildroot}%{_sysconfdir}/rc.d/init.d/xfs
+mkdir -p %{buildroot}%{_sysconfdir}/sysconfig/
+install -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/xfs
 
 # config
 # remove the default
 rm -f %{buildroot}%{_sysconfdir}/X11/fs/config
 #install ours
-install -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/X11/fs/config
+install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/X11/fs/config
 
 # add backward compatibility link for /usr/X11R6/lib/X11/fs (#23423)
 install -d -m 755 %{buildroot}%{_libdir}/X11/
@@ -130,5 +133,6 @@ rm -rf %{buildroot}
 %{_mandir}/man1/xfs.*
 %attr(-,xfs,xfs) %config(noreplace) %{_sysconfdir}/X11/fs/config
 %{_sysconfdir}/rc.d/init.d/xfs
+%{_sysconfdir}/sysconfig/xfs
 
 
