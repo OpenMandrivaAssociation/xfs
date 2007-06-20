@@ -1,12 +1,13 @@
 Name: xfs
 Version: 1.0.4
-Release: %mkrel 4
+Release: %mkrel 5
 Summary: Font server for X11
 Group: System/Servers
 Source0: http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.bz2
 Source1: xfs.init
 Source2: xfs.sysconfig
 Source3: xfs.config
+Patch0: xfs-1.0.4-fontpath_d.patch
 License: MIT
 Packager: Gustavo Pichorim Boiko <boiko@mandriva.com>
 BuildRoot: %{_tmppath}/%{name}-root
@@ -34,8 +35,10 @@ remote computer.
 
 %prep
 %setup -q -n %{name}-%{version}
+%patch0 -p1 -b .fontpath-symlinks
 
 %build
+autoreconf -i
 %configure2_5x	--x-includes=%{_includedir}\
 		--x-libraries=%{_libdir}
 
@@ -56,8 +59,6 @@ install -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/xfs
 rm -f %{buildroot}%{_sysconfdir}/X11/fs/config
 #install ours
 install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/X11/fs/config
-
-mkdir -p %{buildroot}%{_sysconfdir}/X11/fontpath.d/
 
 # add backward compatibility link for /usr/X11R6/lib/X11/fs (#23423)
 install -d -m 755 %{buildroot}%{_libdir}/X11/
