@@ -1,6 +1,6 @@
 Name: xfs
 Version: 1.0.4
-Release: %mkrel 3
+Release: %mkrel 4
 Summary: Font server for X11
 Group: System/Servers
 Source0: http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.bz2
@@ -22,6 +22,9 @@ Requires(post): rpm-helper
 Requires: fslsfonts
 Requires: fstobdf
 Requires: showfont
+
+# because of fontpath.d support
+Requires: libxfont >= 1.2.8-2mdv
 
 %description
 This is a font server for X11.  You can serve fonts to other X servers
@@ -53,6 +56,8 @@ install -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/xfs
 rm -f %{buildroot}%{_sysconfdir}/X11/fs/config
 #install ours
 install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/X11/fs/config
+
+mkdir -p %{buildroot}%{_sysconfdir}/X11/fontpath.d/
 
 # add backward compatibility link for /usr/X11R6/lib/X11/fs (#23423)
 install -d -m 755 %{buildroot}%{_libdir}/X11/
@@ -132,6 +137,7 @@ rm -rf %{buildroot}
 %{_bindir}/xfs
 %{_mandir}/man1/xfs.*
 %attr(-,xfs,xfs) %config(noreplace) %{_sysconfdir}/X11/fs/config
+%dir %{_sysconfdir}/X11/fontpath.d
 %{_sysconfdir}/rc.d/init.d/xfs
 %{_sysconfdir}/sysconfig/xfs
 
