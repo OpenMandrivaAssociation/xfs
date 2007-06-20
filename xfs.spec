@@ -81,30 +81,6 @@ elif [ ! -d /usr/X11R6/lib/X11/fs ]; then
    ln -s ../../../%{_lib}/X11/fs /usr/X11R6/lib/X11/fs
 fi
 
-# CHECKME: do drakfonts still exist? the dependency on chkfontpath at this point
-#          is not good (as it creates a circular dependency involving PreReqs)
-%if 0
-# as we don't overwrite the config file, we may need to add those paths
-# (2=update)
-if [ "$1" -gt 1 ]; then
-	for i in /usr/X11R6/lib/X11/fonts/drakfont \
-			/usr/X11R6/lib/X11/fonts/pcf_drakfont:unscaled \
-			/usr/X11R6/lib/X11/fonts/TTF
-	do
-		if ls `dirname $i`/`basename $i :unscaled`/*.* >/dev/null 2>/dev/null
-		then
-			if ! grep "$i" /etc/X11/fs/config >/dev/null 2>/dev/null ; then
-				/usr/sbin/chkfontpath -q -a "$i"
-			fi
-		else
-			if grep "$i" /etc/X11/fs/config >/dev/null 2>/dev/null ; then
-				/usr/sbin/chkfontpath -q -r "$i"
-			fi
-		fi
-	done
-fi
-%endif
-
 %_post_service xfs
 
 # handle init sequence change
