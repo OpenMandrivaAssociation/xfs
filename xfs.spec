@@ -8,12 +8,12 @@ Source1: xfs.init
 Source2: xfs.sysconfig
 Source3: xfs.config
 Patch0: xfs-1.0.4-fontpath_d.patch
+Patch1: xfs-fix-handling-of-invalid-non-path-FPE.patch
 License: MIT
-Packager: Gustavo Pichorim Boiko <boiko@mandriva.com>
 BuildRoot: %{_tmppath}/%{name}-root
 
 BuildRequires: libfs-devel >= 1.0.0
-BuildRequires: libxfont-devel >= 1.0.0
+BuildRequires: libxfont-devel >= 1.2.8-2mdv
 BuildRequires: x11-util-macros >= 1.0.1
 BuildRequires: x11-xtrans-devel >= 1.0.0
 
@@ -36,10 +36,11 @@ remote computer.
 %prep
 %setup -q -n %{name}-%{version}
 %patch0 -p1 -b .fontpath-symlinks
+%patch1 -p1 -b .fix-non-path-fontpath-fatal-error
 
 %build
 autoreconf -i
-%configure2_5x	--x-includes=%{_includedir}\
+%configure	--x-includes=%{_includedir}\
 		--x-libraries=%{_libdir}
 
 %make configdir=%{_sysconfdir}/X11/fs
