@@ -1,6 +1,6 @@
 Name: xfs
 Version: 1.0.4
-Release: %mkrel 6
+Release: %mkrel 7
 Summary: Font server for X11
 Group: System/Servers
 Source0: http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.bz2
@@ -40,8 +40,7 @@ remote computer.
 
 %build
 autoreconf -i
-%configure	--x-includes=%{_includedir}\
-		--x-libraries=%{_libdir}
+%configure
 
 %make configdir=%{_sysconfdir}/X11/fs
 
