@@ -1,6 +1,6 @@
 Name: xfs
 Version: 1.0.4
-Release: %mkrel 7
+Release: %mkrel 8
 Summary: Font server for X11
 Group: System/Servers
 Source0: http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.bz2
@@ -60,7 +60,7 @@ rm -f %{buildroot}%{_sysconfdir}/X11/fs/config
 #install ours
 install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/X11/fs/config
 
-# add backward compatibility link for /usr/X11R6/lib/X11/fs (#23423)
+# add backward compatibility link for /usr/lib/X11/fs (#23423)
 install -d -m 755 %{buildroot}%{_libdir}/X11/
 ln -s ../../../../%{_sysconfdir}/X11/fs %{buildroot}%{_libdir}/X11/fs
 
@@ -72,15 +72,6 @@ ln -s ../../../../%{_sysconfdir}/X11/fs %{buildroot}%{_libdir}/X11/fs
 
 
 %post
-if [ ! -d /usr/X11R6/lib/X11 ]; then
-   echo "creating /usr/X11R6/lib/X11 linked to /usr/lib/X11 for commercial applications"
-   mkdir -p /usr/X11R6/lib
-   ln -s ../../%{_lib}/X11 /usr/X11R6/lib/X11
-elif [ ! -d /usr/X11R6/lib/X11/fs ]; then
-   echo "creating /usr/X11R6/lib/X11/fs linked to /usr/lib/X11/fs for commercial applications"
-   ln -s ../../../%{_lib}/X11/fs /usr/X11R6/lib/X11/fs
-fi
-
 %_post_service xfs
 
 # handle init sequence change
