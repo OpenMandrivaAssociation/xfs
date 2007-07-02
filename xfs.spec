@@ -81,8 +81,8 @@ fi
 
 %preun
 %_preun_service xfs
-# FIXME: it can't really remove the xfs service because it is needed
-#        by the dm service
+# XXX: it can't really remove the xfs service because it is needed
+#        by the dm service (from the initscripts package)
 true
 
 %postun
@@ -108,5 +108,4 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/X11/fontpath.d
 %{_sysconfdir}/rc.d/init.d/xfs
 %{_sysconfdir}/sysconfig/xfs
-
 
