@@ -24,7 +24,7 @@ Requires: fstobdf
 Requires: showfont
 
 # because of X11R6 directory handling on x11-server-common
-Requires(pre): x11-server-common >= x11-server-common-1.3.0.0-8mdv
+Requires(pre): x11-server-common >= 1.3.0.0-8mdv
 
 # because of fontpath.d support
 Requires: libxfont >= 1.2.8-2mdv
