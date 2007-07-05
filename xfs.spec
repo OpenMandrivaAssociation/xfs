@@ -1,6 +1,6 @@
 Name: xfs
 Version: 1.0.4
-Release: %mkrel 8
+Release: %mkrel 9
 Summary: Font server for X11
 Group: System/Servers
 Source0: http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.bz2
@@ -19,10 +19,12 @@ BuildRequires: x11-xtrans-devel >= 1.0.0
 
 Requires(pre): rpm-helper 
 Requires(post): rpm-helper 
-#PreReq: chkfontpath
 Requires: fslsfonts
 Requires: fstobdf
 Requires: showfont
+
+# because of X11R6 directory handling on x11-server-common
+Requires(pre): x11-server-common >= x11-server-common-1.3.0.0-8mdv
 
 # because of fontpath.d support
 Requires: libxfont >= 1.2.8-2mdv
