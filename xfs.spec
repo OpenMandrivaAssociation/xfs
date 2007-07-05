@@ -1,6 +1,6 @@
 Name: xfs
 Version: 1.0.4
-Release: %mkrel 11
+Release: %mkrel 12
 Summary: Font server for X11
 Group: System/Servers
 Source0: http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.bz2
@@ -83,9 +83,6 @@ fi
 
 %preun
 %_preun_service xfs
-# XXX: it can't really remove the xfs service because it is needed
-#        by the dm service (from the initscripts package)
-true
 
 %postun
 %_postun_userdel xfs
