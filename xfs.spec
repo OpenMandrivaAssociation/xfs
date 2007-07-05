@@ -64,7 +64,7 @@ install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/X11/fs/config
 
 # add backward compatibility link for /usr/lib/X11/fs (#23423)
 install -d -m 755 %{buildroot}%{_libdir}/X11/
-ln -s ../../../../%{_sysconfdir}/X11/fs %{buildroot}%{_libdir}/X11/fs
+ln -s ../../../%{_sysconfdir}/X11/fs %{buildroot}%{_libdir}/X11/fs
 
 %pre
 %_pre_useradd xfs /etc/X11/fs /bin/false
