@@ -10,6 +10,7 @@ Source3: xfs.config
 Patch0: xfs-1.0.4-fontpath_d.patch
 Patch1: xfs-fix-handling-of-invalid-non-path-FPE.patch
 License: MIT
+BuildRoot: %{_tmppath}/%{name}-root
 
 BuildRequires: libfs-devel >= 1.0.0
 BuildRequires: libxfont-devel >= 1.2.8-2mdv
