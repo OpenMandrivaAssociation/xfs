@@ -12,10 +12,10 @@ Patch1: xfs-fix-handling-of-invalid-non-path-FPE.patch
 License: MIT
 BuildRoot: %{_tmppath}/%{name}-root
 
-BuildRequires: x11-util-macros	>= 1.1.5
-BuildRequires: x11-xtrans-devel	>= 1.0.4
-BuildRequires: libxfont-devel	>= 1.3.1
-BuildRequires: libfs-devel	>= 1.0.0
+BuildRequires: libfs-devel >= 1.0.0
+BuildRequires: libxfont-devel >= 1.2.8-2mdv
+BuildRequires: x11-util-macros >= 1.0.1
+BuildRequires: x11-xtrans-devel >= 1.0.0
 
 Requires(pre): rpm-helper 
 Requires(post): rpm-helper 
