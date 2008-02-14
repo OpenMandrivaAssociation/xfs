@@ -1,6 +1,6 @@
 Name: xfs
 Version: 1.0.5
-Release: %mkrel 2
+Release: %mkrel 3
 Summary: Font server for X11
 Group: System/Servers
 Source0: http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.bz2
@@ -11,6 +11,8 @@ Patch0: xfs-1.0.4-fontpath_d.patch
 Patch1: xfs-fix-handling-of-invalid-non-path-FPE.patch
 License: MIT
 BuildRoot: %{_tmppath}/%{name}-root
+
+Obsoletes: xorg-x11-xfs
 
 BuildRequires: libfs-devel >= 1.0.0
 BuildRequires: libxfont-devel >= 1.2.8-2mdv
