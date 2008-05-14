@@ -1,6 +1,6 @@
 Name: xfs
 Version: 1.0.6
-Release: %mkrel 2
+Release: %mkrel 3
 Summary: Font server for X11
 Group: System/Servers
 Source0: http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.bz2
@@ -25,8 +25,8 @@ Requires: fslsfonts
 Requires: fstobdf
 Requires: showfont
 
-# because of X11R6 directory handling on x11-server-common
-Requires(pre): x11-server-common >= 1.4.0.90-13mdv
+# because of directory handling on x11-server-common
+Requires(pre): x11-server-common > 1.4.0.90-16
 
 # because of fontpath.d support
 Requires: libxfont >= 1.2.8-2mdv
@@ -46,11 +46,11 @@ remote computer.
 autoreconf -i
 %configure
 
-%make configdir=%{_sysconfdir}/X11/fs
+%make configdir=%{_datadir}/X11/fs
 
 %install
 rm -rf %{buildroot}
-%makeinstall_std configdir=%{_sysconfdir}/X11/fs
+%makeinstall_std configdir=%{_datadir}/X11/fs
 
 # initscript
 mkdir -p %{buildroot}%{_sysconfdir}/rc.d/init.d/
@@ -60,12 +60,12 @@ install -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/xfs
 
 # config
 # remove the default
-rm -f %{buildroot}%{_sysconfdir}/X11/fs/config
+rm -f %{buildroot}%{_datadir}/X11/fs/config
 #install ours
-install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/X11/fs/config
+install -m 644 %{SOURCE3} %{buildroot}%{_datadir}/X11/fs/config
 
 %pre
-%_pre_useradd xfs /etc/X11/fs /bin/false
+%_pre_useradd xfs /usr/share/X11/fs /bin/false
 
 # for msec high security levels
 %_pre_groupadd xgrp xfs
@@ -97,10 +97,10 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%attr(-,xfs,xfs) %dir %{_sysconfdir}/X11/fs
+%attr(-,xfs,xfs) %dir %{_datadir}/X11/fs
 %{_bindir}/xfs
 %{_mandir}/man1/xfs.*
-%attr(-,xfs,xfs) %config(noreplace) %{_sysconfdir}/X11/fs/config
-%dir %{_sysconfdir}/X11/fontpath.d
+%attr(-,xfs,xfs) %config(noreplace) %{_datadir}/X11/fs/config
+%dir %{_datadir}/X11/fontpath.d
 %{_sysconfdir}/rc.d/init.d/xfs
 %{_sysconfdir}/sysconfig/xfs
