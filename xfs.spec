@@ -1,5 +1,5 @@
 Name: xfs
-Version: 1.0.7
+Version: 1.0.8
 Release: %mkrel 1
 Summary: Font server for X11
 Group: System/Servers
