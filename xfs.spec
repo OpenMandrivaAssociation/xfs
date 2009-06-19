@@ -1,14 +1,12 @@
 Name: xfs
-Version: 1.0.8
-Release: %mkrel 2
+Version: 1.1.0
+Release: %mkrel 1
 Summary: Font server for X11
 Group: System/Servers
 Source0: http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.bz2
 Source1: xfs.init
 Source2: xfs.sysconfig
 Source3: xfs.config
-Patch0: xfs-1.0.4-fontpath_d.patch
-Patch1: xfs-fix-handling-of-invalid-non-path-FPE.patch
 License: MIT
 BuildRoot: %{_tmppath}/%{name}-root
 
@@ -31,6 +29,8 @@ Requires(pre): x11-server-common >= 1.4.0.90-13mdv
 # because of fontpath.d support
 Requires: libxfont >= 1.2.8-2mdv
 
+%define fontpath %{_sysconfdir}/X11/fontpath.d
+
 %description
 This is a font server for X11.  You can serve fonts to other X servers
 remotely with this package, and the remote system will be able to use all
@@ -39,18 +39,18 @@ remote computer.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1 -b .fontpath-symlinks
-%patch1 -p1 -b .fix-non-path-fontpath-fatal-error
 
 %build
-autoreconf -i
-%configure
+%configure2_5x	--with-default-font-path=%{fontpath} \
+		--disable-devel-docs
 
 %make configdir=%{_sysconfdir}/X11/fs
 
 %install
 rm -rf %{buildroot}
 %makeinstall_std configdir=%{_sysconfdir}/X11/fs
+
+install -d 755 %{buildroot}%{fontpath}
 
 # initscript
 mkdir -p %{buildroot}%{_sysconfdir}/rc.d/init.d/
