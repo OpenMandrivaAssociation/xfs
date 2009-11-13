@@ -1,6 +1,6 @@
 Name: xfs
 Version: 1.1.0
-Release: %mkrel 2
+Release: %mkrel 3
 Summary: Font server for X11
 Group: System/Servers
 Source0: http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.bz2
