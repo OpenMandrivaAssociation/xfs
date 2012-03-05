@@ -1,6 +1,6 @@
 Name: xfs
-Version: 1.1.1
-Release: %mkrel 2
+Version: 1.1.2
+Release: 1
 Summary: Font server for X11
 Group: System/Servers
 Source0: http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.bz2
@@ -8,12 +8,11 @@ Source1: xfs.init
 Source2: xfs.sysconfig
 Source3: xfs.config
 License: MIT
-BuildRoot: %{_tmppath}/%{name}-root
 
 Obsoletes: xorg-x11-xfs
 
 BuildRequires: libfs-devel >= 1.0.0
-BuildRequires: libxfont-devel >= 1.2.8-2mdv
+BuildRequires: libxfont-devel >= 1.4.5
 BuildRequires: x11-util-macros >= 1.0.1
 BuildRequires: x11-xtrans-devel >= 1.0.0
 
