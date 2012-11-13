@@ -1,0 +1,5 @@
+sources:
+  "xfs-1.1.2.tar.bz2:"	d4a64e12f8a773bd0120977191586ca12baf1ace
+  "xfs.config:"	50471827ca947b53af11cc831234fcc247cbd09d
+  "xfs.init:"	bdee10f273389bbde6cffb5d0f4da442fc919bdd
+  "xfs.sysconfig:"	f8dd9ca8971e85ee7dd573877f5944d25e815046
