@@ -1,0 +1,75 @@
+#!/bin/sh
+#
+# xfs:       Starts the X Font Server
+#
+# Version:      @(#) /etc/rc.d/init.d/xfs 1.4
+#
+# chkconfig: 2345 20 10
+# description: Starts and stops the X Font Server at boot time and shutdown.
+#
+# processname: xfs
+# config: /etc/X11/fs/config
+# hide: true
+#
+### BEGIN INIT INFO
+# Provides: xfs
+# Required-Start: $network
+# Required-Stop: $network
+# Default-Start: 2 3 4 5
+# Short-Description: X Font Server
+# Description: X Font Server
+### END INIT INFO
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+
+# Load service configuration
+XFS_TCP_PORT="-1"
+XFS_EXTRA_OPTIONS=""
+[ -f /etc/sysconfig/xfs ] && . /etc/sysconfig/xfs
+
+RETVAL=0
+
+start()
+{
+	echo -n "Starting X Font Server: "
+	mkdir -p /tmp
+	chmod a+w,+t /tmp
+	rm -fr /tmp/.font-unix
+	daemon --check xfs xfs -port $XFS_TCP_PORT -daemon -droppriv \
+			-user xfs $XFS_EXTRA_OPTIONS
+	touch /var/lock/subsys/xfs
+	echo
+}
+
+stop()
+{
+	echo -n "Shutting down X Font Server: "
+	killproc xfs
+	rm -f /var/lock/subsys/xfs
+	echo
+}
+
+# See how we were called.
+case "$1" in
+  start)
+	start
+	;;
+  stop)
+	stop
+	;;
+  status)
+	status xfs
+	RETVAL=$?
+	;;
+  restart)
+	stop
+	start
+	;;
+  *)
+	echo "*** Usage: xfs {start|stop|status|restart}"
+	exit 1
+esac
+
+exit $RETVAL

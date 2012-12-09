@@ -1,0 +1,5 @@
+# this is passed as an argument to -port when calling xfs
+XFS_TCP_PORT="-1"
+
+# this is appended to the end of the xfs calling command
+XFS_EXTRA_OPTIONS=""
