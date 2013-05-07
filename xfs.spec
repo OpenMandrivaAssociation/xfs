@@ -1,33 +1,31 @@
-Name: xfs
-Version: 1.1.2
-Release: 1
-Summary: Font server for X11
-Group: System/Servers
-Source0: http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.bz2
-Source1: xfs.init
-Source2: xfs.sysconfig
-Source3: xfs.config
-License: MIT
-BuildRoot: %{_tmppath}/%{name}-root
+Name:		xfs
+Version:	1.1.3
+Release:	1
+Summary:	Font server for X11
+Group:		System/Servers
+Source0:	http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.bz2
+Source1:	xfs.init
+Source2:	xfs.sysconfig
+Source3:	xfs.config
+License:	MIT
+Obsoletes:	xorg-x11-xfs
 
-Obsoletes: xorg-x11-xfs
+BuildRequires:	libfs-devel >= 1.0.0
+BuildRequires:	libxfont-devel >= 1.2.8-2mdv
+BuildRequires:	x11-util-macros >= 1.0.1
+BuildRequires:	x11-xtrans-devel >= 1.0.0
 
-BuildRequires: libfs-devel >= 1.0.0
-BuildRequires: libxfont-devel >= 1.2.8-2mdv
-BuildRequires: x11-util-macros >= 1.0.1
-BuildRequires: x11-xtrans-devel >= 1.0.0
-
-Requires(pre): rpm-helper 
-Requires(post): rpm-helper 
-Requires: fslsfonts
-Requires: fstobdf
-Requires: showfont
+Requires(pre):	rpm-helper 
+Requires(post):	rpm-helper 
+Requires:	fslsfonts
+Requires:	fstobdf
+Requires:	showfont
 
 # because of X11R6 directory handling on x11-server-common
-Requires(pre): x11-server-common >= 1.4.0.90-13mdv
+Requires(pre):	x11-server-common >= 1.4.0.90-13mdv
 
 # because of fontpath.d support
-Requires: libxfont >= 1.2.8-2mdv
+Requires:	libxfont >= 1.2.8-2mdv
 
 %define fontpath %{_sysconfdir}/X11/fontpath.d
 
@@ -41,13 +39,13 @@ remote computer.
 %setup -q -n %{name}-%{version}
 
 %build
-%configure2_5x	--with-default-font-path=%{fontpath} \
+%configure2_5x	\
+		--with-default-font-path=%{fontpath} \
 		--disable-devel-docs
 
 %make configdir=%{_sysconfdir}/X11/fs
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std configdir=%{_sysconfdir}/X11/fs
 
 install -d 755 %{buildroot}%{fontpath}
@@ -96,11 +94,7 @@ then
   /sbin/service xfs start
 fi
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %attr(-,xfs,xfs) %dir %{_sysconfdir}/X11/fs
 %{_libdir}/X11/fs
 %{_bindir}/xfs
