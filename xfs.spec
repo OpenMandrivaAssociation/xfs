@@ -1,6 +1,6 @@
 Name:		xfs
 Version:	1.1.3
-Release:	4
+Release:	5
 Summary:	Font server for X11
 Group:		System/Servers
 Source0:	http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.bz2
