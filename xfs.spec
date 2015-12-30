@@ -1,3 +1,5 @@
+%define _disable_rebuild_configure 1
+
 Name:		xfs
 Version:	1.1.4
 Release:	3
