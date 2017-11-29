@@ -1,8 +1,8 @@
 %define _disable_rebuild_configure 1
 
 Name:		xfs
-Version:	1.1.4
-Release:	3
+Version:	1.2.0
+Release:	1
 Summary:	Font server for X11
 Group:		System/Servers
 Source0:	http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.bz2
