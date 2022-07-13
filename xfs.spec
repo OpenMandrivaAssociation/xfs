@@ -70,33 +70,15 @@ install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/X11/fs/config
 install -d -m 755 %{buildroot}%{_libdir}/X11/
 ln -s ../../../%{_sysconfdir}/X11/fs %{buildroot}%{_libdir}/X11/fs
 
-%pre
-%_pre_useradd xfs /etc/X11/fs /bin/false
+%post            
+%systemd_post xfs.service            
 
-# for msec high security levels
-%_pre_groupadd xgrp xfs
+%preun            
+%systemd_preun xfs.service            
 
+%postun            
+%systemd_postun_with_restart xfs.service
 
-%post
-%_post_service xfs
-
-# handle init sequence change
-if [ -f /etc/rc5.d/S90xfs ] && grep -q 'chkconfig: 2345 20 10' /etc/init.d/xfs; then
-	/sbin/chkconfig --add xfs
-fi
-
-%preun
-%_preun_service xfs
-
-%postun
-%_postun_userdel xfs
-
-%triggerpostun -- XFree86-xfs
-%_post_service xfs
-if [ ! -f /var/lock/subsys/xfs ]
-then
-  /sbin/service xfs start
-fi
 
 %files
 %attr(-,xfs,xfs) %dir %{_sysconfdir}/X11/fs
