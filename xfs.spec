@@ -1,11 +1,11 @@
 %define _disable_rebuild_configure 1
 
 Name:		xfs
-Version:	1.2.0
-Release:	3
+Version:	1.2.1
+Release:	1
 Summary:	Font server for X11
 Group:		System/Servers
-Source0:	http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.bz2
+Source0:	http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.xz
 Source1:	xfs.init
 Source2:	xfs.sysconfig
 Source3:	xfs.config
@@ -47,10 +47,10 @@ remote computer.
 		--with-default-font-path=%{fontpath} \
 		--disable-devel-docs
 
-%make configdir=%{_sysconfdir}/X11/fs
+%make_build configdir=%{_sysconfdir}/X11/fs
 
 %install
-%makeinstall_std configdir=%{_sysconfdir}/X11/fs
+%make_install configdir=%{_sysconfdir}/X11/fs
 
 install -d 755 %{buildroot}%{fontpath}
 
