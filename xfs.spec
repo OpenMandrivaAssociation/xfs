@@ -70,17 +70,15 @@ install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/X11/fs/config
 install -d -m 755 %{buildroot}%{_libdir}/X11/
 ln -s ../../../%{_sysconfdir}/X11/fs %{buildroot}%{_libdir}/X11/fs
 
-%pre
-%service_add_pre xfs.service
+%post            
+%systemd_post xfs.service            
 
-%post
-%service_add_post xfs.service
+%preun            
+%systemd_preun xfs.service            
 
-%preun
-%service_del_preun xfs.service
+%postun            
+%systemd_postun_with_restart xfs.service
 
-%postun
-%service_del_postun xfs.service
 
 %files
 %attr(-,xfs,xfs) %dir %{_sysconfdir}/X11/fs
