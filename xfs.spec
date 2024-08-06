@@ -70,17 +70,13 @@ install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/X11/fs/config
 install -d -m 755 %{buildroot}%{_libdir}/X11/
 ln -s ../../../%{_sysconfdir}/X11/fs %{buildroot}%{_libdir}/X11/fs
 
-%post            
-%systemd_post xfs.service            
-
-%preun            
-%systemd_preun xfs.service            
-
-%postun            
-%systemd_postun_with_restart xfs.service
-
+mkdir -p %{buildroot}%{_sysusersdir}
+cat >%{buildroot}%{_sysusersdir}/%{name}.conf <<EOF
+u xfs - "X Font Server" %{_sysconfdir}/X11/fs /bin/nologin
+EOF
 
 %files
+%{_sysusersdir}/*.conf
 %attr(-,xfs,xfs) %dir %{_sysconfdir}/X11/fs
 %{_libdir}/X11/fs
 %{_bindir}/xfs
