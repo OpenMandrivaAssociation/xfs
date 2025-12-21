@@ -12,6 +12,11 @@ Source3:	xfs.config
 License:	MIT
 Obsoletes:	xorg-x11-xfs
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	libfs-devel >= 1.0.0
 BuildRequires:	libxfont-devel >= 1.2.8-2mdv
 BuildRequires:	pkgconfig(xfont2)
